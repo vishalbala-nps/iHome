@@ -9,13 +9,18 @@ client = boto3.client('sqs', region_name='eu-west-1', aws_access_key_id=os.geten
 resp = client.get_queue_url(QueueName="iHome.fifo")
 qURL=resp['QueueUrl']
 
+def handleResponse(d):
+    device = d["device"]
+    op = d["operation"]
+    print("Device: "+device+" Operation: "+op)
+
 print("Connecting to SQS...")
 try:
     while True:
         resp = client.receive_message(QueueUrl=qURL,WaitTimeSeconds=10)
         if 'Messages' in resp:
             mStr = json.loads(resp['Messages'][0]['Body'])
-            print(mStr)
+            handleResponse(mStr)
             resp = client.delete_message(QueueUrl=qURL,ReceiptHandle=resp['Messages'][0]['ReceiptHandle'])
 except Exception as e:
     print("SQS Error: "+str(e))

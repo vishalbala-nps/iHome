@@ -1,6 +1,7 @@
 import boto3
 from dotenv import load_dotenv
 import os
+import json
 
 load_dotenv()
 
@@ -8,6 +9,7 @@ client = boto3.client('sqs', region_name='eu-west-1', aws_access_key_id=os.geten
 resp = client.get_queue_url(QueueName="AlexaSmarthome.fifo")
 qURL=resp['QueueUrl']
 
+print("Connecting to SQS...")
 try:
     while True:
         resp = client.receive_message(QueueUrl=qURL,WaitTimeSeconds=10)

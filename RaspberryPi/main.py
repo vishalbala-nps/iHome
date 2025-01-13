@@ -10,9 +10,12 @@ resp = client.get_queue_url(QueueName="iHome.fifo")
 qURL=resp['QueueUrl']
 
 def handleResponse(d):
-    device = d["device"]
-    op = d["operation"]
-    print("Device: "+device+" Operation: "+op)
+    try:
+        device = d["device"]
+        op = d["operation"]
+        print("Device: "+device+" Operation: "+op)
+    except:
+        print(d)
 
 print("Connecting to SQS...")
 try:

@@ -4,7 +4,7 @@ import boto3
 import uuid
 import json
 sqs = boto3.resource('sqs')
-queue = sqs.get_queue_by_name(QueueName='AlexaSmarthome.fifo')
+queue = sqs.get_queue_by_name(QueueName='iHome.fifo')
 
 sresobj = SmartHomeResponseHandler()
 sresobj.addLightAppliance(manufacturer="iHome",name="Bedroom Light",description="Light",device_id="endpoint-ihome-light")

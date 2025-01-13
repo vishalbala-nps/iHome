@@ -1,0 +1,21 @@
+Metadata-Version: 2.1
+Name: alexa-smarthome
+Version: 1.0.1
+Summary: A Python module for managing Amazon Alexa Smarthome Requests and Responses
+Home-page: https://github.com/vishalbala-nps/alexa-smarthome
+Author: Vishal Balasubramanian
+Author-email: vishal.bala.nps@gmail.com
+License: MIT
+Keywords: IOT,Smart,Home,Smart Home,Voice,artificial intelligence
+Platform: UNKNOWN
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Software Development :: Build Tools
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3
+Description-Content-Type: text/markdown
+
+# alexa-smarthome
+A Python module for managing Amazon Alexa Smarthome Requests and Responses
+
+

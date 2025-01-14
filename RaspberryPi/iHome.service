@@ -1,0 +1,12 @@
+[Unit]
+Description=iHome
+After=multi-user.target
+
+[Service]
+Type=idle
+ExecStart=/home/vishal/iHome/RaspberryPi/env/bin/python3 /home/vishal/iHome/RaspberryPi/main.py
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target

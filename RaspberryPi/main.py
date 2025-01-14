@@ -13,10 +13,10 @@ qURL=resp['QueueUrl']
 light = gpiozero.LED(21)
 fan = gpiozero.LED(20)
 logging.basicConfig(filename="/home/vishal/iHome.log",
-                            filemode='a',
+                            filemode='w',
                             format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
                             datefmt='%H:%M:%S',
-                            level=logging.DEBUG)
+                            level=logging.INFO)
 
 
 def handleResponse(d):

@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 import os
 import json
 import gpiozero
+import logging
 
 load_dotenv()
 
@@ -11,12 +12,18 @@ resp = client.get_queue_url(QueueName="iHome.fifo")
 qURL=resp['QueueUrl']
 light = gpiozero.LED(21)
 fan = gpiozero.LED(20)
+logging.basicConfig(filename="/home/vishal/iHome.log",
+                            filemode='a',
+                            format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
+                            datefmt='%H:%M:%S',
+                            level=logging.DEBUG)
+
 
 def handleResponse(d):
     try:
         device = d["device"]
         op = d["operation"]
-        print("Device: "+device+" Operation: "+op)
+        logging.info("Device: "+device+" Operation: "+op)
         if device == "LIGHT":
             if op == "on":
                 light.on()
@@ -30,7 +37,7 @@ def handleResponse(d):
     except:
         print(d)
 
-print("Connecting to SQS...")
+logging.info("Connecting to SQS...")
 try:
     while True:
         resp = client.receive_message(QueueUrl=qURL,WaitTimeSeconds=10)
@@ -39,4 +46,5 @@ try:
             handleResponse(mStr)
             resp = client.delete_message(QueueUrl=qURL,ReceiptHandle=resp['Messages'][0]['ReceiptHandle'])
 except Exception as e:
-    print("SQS Error: "+str(e))
+    logging.error("SQS Error: "+str(e))
+    exit(1)

@@ -10,7 +10,8 @@ load_dotenv()
 client = boto3.client('sqs', region_name='eu-west-1', aws_access_key_id=os.getenv("AWS_ACCESS_ID"), aws_secret_access_key = os.getenv("AWS_SECRET_ACCESS_KEY"))
 resp = client.get_queue_url(QueueName="iHome.fifo")
 qURL=resp['QueueUrl']
-light = gpiozero.LED(21)
+light1 = gpiozero.LED(21)
+light2 = gpiozero.LED(16)
 fan = gpiozero.LED(20)
 logging.basicConfig(filename="/home/vishal/iHome.log",
                             filemode='w',
@@ -24,12 +25,17 @@ def handleResponse(d):
         device = d["device"]
         op = d["operation"]
         logging.info("Device: "+device+" Operation: "+op)
-        if device == "LIGHT":
+        if device == "LIGHT1":
             if op == "on":
-                light.on()
+                light1.on()
             elif op == "off":
-                light.off()
-        if device == "FAN":
+                light1.off()
+        elif device == "LIGHT2":
+            if op == "on":
+                light2.on()
+            elif op == "off":
+                light2.off()
+        elif device == "FAN":
             if op == "on":
                 fan.on()
             elif op == "off":

@@ -59,5 +59,5 @@ def lambda_handler(event, context):
             return sresobj.buildSwitchResponse(endpoint="endpoint-ihome-fan",powerState="OFF",oauthToken=otoken)
         elif sreqobj.get_endpoint_id() == "endpoint-ihome-ac":
             print("turn off ac")
-            queue.send_message(MessageBody=form_message("AC", 'OFF'),MessageGroupId='messageGroup1')
+            queue.send_message(MessageBody=form_message("AC", 'off'),MessageGroupId='messageGroup1')
             return sresobj.buildSwitchResponse(endpoint="endpoint-ihome-ac",powerState="OFF",oauthToken=otoken)

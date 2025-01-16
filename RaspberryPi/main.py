@@ -4,6 +4,7 @@ import os
 import json
 import gpiozero
 import logging
+import os
 
 load_dotenv()
 
@@ -40,6 +41,11 @@ def handleResponse(d):
                 fan.on()
             elif op == "off":
                 fan.off()
+        elif device == "AC":
+            if op == "on":
+                os.system("irsend SEND_ONCE LG_AC AC_ON")
+            elif op == "off":
+                os.system("irsend SEND_ONCE LG_AC AC_OFF")
     except:
         print(d)
 

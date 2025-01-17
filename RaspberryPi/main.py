@@ -14,6 +14,11 @@ qURL=resp['QueueUrl']
 light1 = gpiozero.LED(21)
 light2 = gpiozero.LED(16)
 fan = gpiozero.LED(20)
+if os.getenv("REVERSE") == "TRUE":
+    rev = True
+else:
+    rev = False
+
 logging.basicConfig(filename="/home/vishal/iHome.log",
                             filemode='w',
                             format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
@@ -28,19 +33,37 @@ def handleResponse(d):
         logging.info("Device: "+device+" Operation: "+op)
         if device == "LIGHT1":
             if op == "on":
-                light1.on()
+                if rev:
+                    light1.off()
+                else:
+                    light1.on()
             elif op == "off":
-                light1.off()
+                if rev:
+                    light1.on()
+                else:
+                    light1.off()
         elif device == "LIGHT2":
             if op == "on":
-                light2.on()
+                if rev:
+                    light2.off()
+                else:
+                    light2.on()
             elif op == "off":
-                light2.off()
+                if rev:
+                    light2.on()
+                else:
+                    light2.off()
         elif device == "FAN":
             if op == "on":
-                fan.on()
+                if rev:
+                    fan.off()
+                else:
+                    fan.on()
             elif op == "off":
-                fan.off()
+                if rev:
+                    fan.on()
+                else:
+                    fan.off()
         elif device == "AC":
             if op == "on":
                 os.system("irsend SEND_ONCE LG_AC AC_ON")

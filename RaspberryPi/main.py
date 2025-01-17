@@ -15,8 +15,14 @@ light1 = gpiozero.LED(21)
 light2 = gpiozero.LED(16)
 fan = gpiozero.LED(20)
 if os.getenv("REVERSE") == "TRUE":
+    light1.on()
+    light2.on()
+    fan.on()
     rev = True
 else:
+    light1.off()
+    light2.off()
+    fan.off()
     rev = False
 
 logging.basicConfig(filename="/home/vishal/iHome.log",

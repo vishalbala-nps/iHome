@@ -14,6 +14,14 @@ qURL=resp['QueueUrl']
 light1 = gpiozero.LED(21)
 light2 = gpiozero.LED(16)
 fan = gpiozero.LED(20)
+
+
+logging.basicConfig(filename="/home/vishal/iHome.log",
+                            filemode='w',
+                            format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
+                            datefmt='%H:%M:%S',
+                            level=logging.INFO)
+
 if os.getenv("REVERSE") == "TRUE":
     logging.info("IN REVERSE MODE!")
     light1.on()
@@ -26,14 +34,6 @@ else:
     light2.off()
     fan.off()
     rev = False
-
-logging.basicConfig(filename="/home/vishal/iHome.log",
-                            filemode='w',
-                            format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
-                            datefmt='%H:%M:%S',
-                            level=logging.INFO)
-
-
 def handleResponse(d):
     try:
         device = d["device"]
